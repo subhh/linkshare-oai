@@ -1,0 +1,15 @@
+{
+    "autoload": {
+        "psr-4": {
+            "SubHH\\ALS\\OAI\\": [
+                "src/main/php",
+                "src/test/php"
+            ]
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^9.5",
+        "hab/oai-repository": "^2.3",
+        "phpstan/phpstan": "^0.12"
+    }
+}
