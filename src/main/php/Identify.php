@@ -4,8 +4,18 @@ namespace SubHH\Linkshare\OAI;
 
 use HAB\OAI\PMH\Model;
 
-class Identify extends Command
+class Identify
 {
+    /**
+     * @var PDO
+     */
+    private $dbh;
+
+    public function __construct (PDO $dbh)
+    {
+        $this->dbh = $dbh;
+    }
+
     public function execute () : Model\Identity
     {
         $stmt = $this->dbh->query('select date(min(geaendert)) from quelle where freigeschaltet is not null');
