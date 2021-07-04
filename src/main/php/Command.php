@@ -21,27 +21,21 @@ declare(strict_types=1);
 
 namespace SubHH\Linkshare\OAI;
 
-use HAB\OAI\PMH\Model\Identity;
-
 /**
- * OAI PMH ListSets operation.
+ * Command base class.
  *
  * @author David Maus <david.maus@sub.uni-hamburg.de>
  * @copyright Copyright (c) 2021 by Staats- und Universitätsbibliothek Hamburg
  */
-final class Identify extends Command
+abstract class Command
 {
-    public function execute () : Identity
-    {
-        $earliestDatestamp = $this->mapper->getEarliestDatestamp();
+    /**
+     * @var Mapper
+     */
+    protected $mapper;
 
-        $identity = new Identity();
-        $identity->__set('baseURL', 'https://linkshare.sub.uni-hamburg.de/service/oai');
-        $identity->__set('repositoryName', 'SUBHH Linkshare');
-        $identity->__set('adminEmail', 'david.maus@sub.uni-hamburg.de');
-        $identity->__set('earliestDatestamp', substr((string)$earliestDatestamp, 0, 10));
-        $identity->__set('deletedRecord', 'no');
-        $identity->__set('granularity', 'YYYY-MM-DD');
-        return $identity;
+    public function __construct (Mapper $mapper)
+    {
+        $this->mapper = $mapper;
     }
 }

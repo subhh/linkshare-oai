@@ -21,27 +21,35 @@ declare(strict_types=1);
 
 namespace SubHH\Linkshare\OAI;
 
-use HAB\OAI\PMH\Model\Identity;
-
 /**
- * OAI PMH ListSets operation.
+ * Resumption token.
  *
  * @author David Maus <david.maus@sub.uni-hamburg.de>
  * @copyright Copyright (c) 2021 by Staats- und Universitätsbibliothek Hamburg
  */
-final class Identify extends Command
+abstract class Token
 {
-    public function execute () : Identity
+    static public function encode (object $command) : string
     {
-        $earliestDatestamp = $this->mapper->getEarliestDatestamp();
+        return base64_encode(http_build_query(get_object_vars($command)));
+    }
 
-        $identity = new Identity();
-        $identity->__set('baseURL', 'https://linkshare.sub.uni-hamburg.de/service/oai');
-        $identity->__set('repositoryName', 'SUBHH Linkshare');
-        $identity->__set('adminEmail', 'david.maus@sub.uni-hamburg.de');
-        $identity->__set('earliestDatestamp', substr((string)$earliestDatestamp, 0, 10));
-        $identity->__set('deletedRecord', 'no');
-        $identity->__set('granularity', 'YYYY-MM-DD');
-        return $identity;
+    static public function decode (object $command, string $token) : bool
+    {
+        $token = base64_decode($token, true);
+        if ($token === false) {
+            return false;
+        }
+
+        parse_str($token, $data);
+        $properties = get_object_vars($command);
+        if (array_diff_key($data, $properties)) {
+            return false;
+        }
+
+        foreach ($data as $key => $value) {
+            $command->$key = $value;
+        }
+        return true;
     }
 }

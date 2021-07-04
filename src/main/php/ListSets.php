@@ -21,7 +21,10 @@ declare(strict_types=1);
 
 namespace SubHH\Linkshare\OAI;
 
-use HAB\OAI\PMH\Model\Identity;
+use HAB\OAI\PMH\ProtocolError;
+use HAB\OAI\PMH\Model\ResponseBody;
+use HAB\OAI\PMH\Model\ResponseBodyInterface;
+use HAB\OAI\PMH\Model\Set;
 
 /**
  * OAI PMH ListSets operation.
@@ -29,19 +32,29 @@ use HAB\OAI\PMH\Model\Identity;
  * @author David Maus <david.maus@sub.uni-hamburg.de>
  * @copyright Copyright (c) 2021 by Staats- und Universitätsbibliothek Hamburg
  */
-final class Identify extends Command
+final class ListSets extends Command
 {
-    public function execute () : Identity
-    {
-        $earliestDatestamp = $this->mapper->getEarliestDatestamp();
+    use Resumable;
 
-        $identity = new Identity();
-        $identity->__set('baseURL', 'https://linkshare.sub.uni-hamburg.de/service/oai');
-        $identity->__set('repositoryName', 'SUBHH Linkshare');
-        $identity->__set('adminEmail', 'david.maus@sub.uni-hamburg.de');
-        $identity->__set('earliestDatestamp', substr((string)$earliestDatestamp, 0, 10));
-        $identity->__set('deletedRecord', 'no');
-        $identity->__set('granularity', 'YYYY-MM-DD');
-        return $identity;
+    public function execute () : ResponseBodyInterface
+    {
+        $completeListSize = $this->mapper->countSets();
+        $sets = $this->mapper->findSets($this->cursor, $this->itemsPerPage);
+        if (empty($sets)) {
+            throw new ProtocolError\NoSetHierarchy();
+        }
+        $cursor = $this->cursor + count($sets);
+
+        $response = new ResponseBody();
+        foreach ($sets as $set) {
+            $response->append($set);
+        }
+
+        $resumptionToken = $this->createResumptionToken($cursor, $completeListSize);
+        if ($resumptionToken) {
+            $response->setResumptionToken($resumptionToken);
+        }
+
+        return $response;
     }
 }
