@@ -24,9 +24,8 @@ default:
     exit;
 }
 
-$psr11 = new Pimple\Psr11\Container($container);
-$commands = new HAB\OAI\PMH\Command\CommandFactory($psr11);
-$controller = new HAB\OAI\PMH\Request\Controller($commands);
+$repository = new SubHH\Linkshare\OAI\Repository($container);
+$controller = new HAB\OAI\PMH\Request\Controller($repository);
 
 try {
     $payload = $controller->handle('https://linkshare.sub.uni-hamburg.de/oai', $parameters);

@@ -21,7 +21,7 @@ declare(strict_types=1);
 
 namespace SubHH\Linkshare\OAI;
 
-use HAB\OAI\PMH\Model\ResponseBodyInterface;
+use HAB\OAI\PMH\Model\Identity;
 
 /**
  * OAI PMH ListSets operation.
@@ -31,7 +31,7 @@ use HAB\OAI\PMH\Model\ResponseBodyInterface;
  */
 final class Identify extends Command
 {
-    public function execute () : ResponseBodyInterface
+    public function execute () : Identity
     {
         $earliestDatestamp = $this->mapper->getEarliestDatestamp();
 

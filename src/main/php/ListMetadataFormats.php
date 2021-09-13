@@ -33,6 +33,11 @@ use HAB\OAI\PMH\Model\ResponseBodyInterface;
  */
 final class ListMetadataFormats extends Command
 {
+    /**
+     * @var string
+     */
+    public $identifier;
+
     public function execute () : ResponseBodyInterface
     {
         $response = new ResponseBody();

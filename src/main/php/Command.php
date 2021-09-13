@@ -21,19 +21,14 @@ declare(strict_types=1);
 
 namespace SubHH\Linkshare\OAI;
 
-use HAB\OAI\PMH\Command\CommandInterface;
-
 /**
  * Command base class.
  *
  * @author David Maus <david.maus@sub.uni-hamburg.de>
  * @copyright Copyright (c) 2021 by Staats- und Universitätsbibliothek Hamburg
  */
-abstract class Command implements CommandInterface
+abstract class Command
 {
-    /** @var array<string, string> */
-    private $parameters = array();
-
     /**
      * @var Mapper
      */
@@ -43,23 +38,4 @@ abstract class Command implements CommandInterface
     {
         $this->mapper = $mapper;
     }
-
-    public function getParameters () : array
-    {
-        return $this->parameters;
-    }
-
-    public function setParameter (string $name, string $value) : void
-    {
-        $this->parameters[$name] = $value;
-    }
-
-    public function __get (string $name) : ?string
-    {
-        if (array_key_exists($name, $this->parameters)) {
-            return $this->parameters[$name];
-        }
-        return null;
-    }
-
 }
