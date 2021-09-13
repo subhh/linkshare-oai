@@ -38,26 +38,6 @@ final class ListRecords extends Command
 {
     use Resumable;
 
-    /**
-     * @var string
-     */
-    public $from;
-
-    /**
-     * @var string
-     */
-    public $until;
-
-    /**
-     * @var string
-     */
-    public $set;
-
-    /**
-     * @var string
-     */
-    public $metadataPrefix;
-
     public function execute () : ResponseBodyInterface
     {
         $completeListSize = $this->mapper->countRecords($this->from, $this->until, $this->set);

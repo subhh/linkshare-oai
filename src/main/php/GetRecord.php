@@ -36,16 +36,6 @@ use HAB\OAI\PMH\Model\ResponseBodyInterface;
  */
 final class GetRecord extends Command
 {
-    /**
-     * @var string
-     */
-    public $identifier;
-
-    /**
-     * @var string
-     */
-    public $metadataPrefix;
-
     public function execute () : ResponseBodyInterface
     {
         $header = $this->mapper->getRecord($this->identifier);
