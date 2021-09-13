@@ -36,7 +36,7 @@ final class Identify extends Command
         $earliestDatestamp = $this->mapper->getEarliestDatestamp();
 
         $identity = new Identity();
-        $identity->__set('baseURL', 'https://linkshare.sub.uni-hamburg.de/service/oai');
+        $identity->__set('baseURL', 'https://linkshare.sub.uni-hamburg.de/oai');
         $identity->__set('repositoryName', 'SUBHH Linkshare');
         $identity->__set('adminEmail', 'david.maus@sub.uni-hamburg.de');
         $identity->__set('earliestDatestamp', substr((string)$earliestDatestamp, 0, 10));

@@ -28,7 +28,7 @@ $repository = new SubHH\Linkshare\OAI\Repository($container);
 $controller = new HAB\OAI\PMH\Request\Controller($repository);
 
 try {
-    $payload = $controller->handle('https://linkshare.sub.uni-hamburg.de/service/oai', $parameters);
+    $payload = $controller->handle('https://linkshare.sub.uni-hamburg.de/oai', $parameters);
 
     $writer = new HAB\OAI\PMH\Response\Writer(true);
     $body = $writer->serialize($payload);
