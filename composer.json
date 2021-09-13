@@ -12,6 +12,7 @@
         "hab/oai-repository": "^3.0",
         "phpstan/phpstan": "^0.12",
         "pimple/pimple": "^3.4",
-        "symfony/http-foundation": "^5.0"
+        "symfony/http-foundation": "^5.0",
+        "phan/phan": "^5.2"
     }
 }
