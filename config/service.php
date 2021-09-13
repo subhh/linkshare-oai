@@ -51,7 +51,7 @@ $container['GetRecord'] = function () use ($container) {
     $handle = $container['db.handle'];
     $mapper = new SubHH\Linkshare\OAI\Mapper($handle);
     $mapper->addSerializer('oai_dc', new SubHH\Linkshare\OAI\DublinCore($handle));
-    $mapper->addSerializer('dcx', new SubHH\Linkshare\OAI\Legacy\VascodaExporter($handle));
+    $mapper->addSerializer('vascoda', new SubHH\Linkshare\OAI\Legacy\VascodaExporter($handle));
     $command = new SubHH\Linkshare\OAI\GetRecord($mapper);
     return $command;
 };
