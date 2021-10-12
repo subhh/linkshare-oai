@@ -44,6 +44,9 @@ final class ListMetadataFormats extends Command
         $response->append(
             new MetadataFormat('oai_dc', 'http://www.openarchives.org/OAI/2.0/oai_dc/', 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd')
         );
+        $response->append(
+            new MetadataFormat('vascoda', 'http://purl.org/dc/xml/', 'not-available')
+        );
         return $response;
     }
 }
