@@ -45,7 +45,7 @@ final class ListMetadataFormats extends Command
             new MetadataFormat('oai_dc', 'http://www.openarchives.org/OAI/2.0/oai_dc/', 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd')
         );
         $response->append(
-            new MetadataFormat('vascoda', 'http://purl.org/dc/xml/', 'not-available')
+            new MetadataFormat('vascoda', 'http://purl.org/dc/xml/', 'https://linkshare.sub.uni-hamburg.de/oai/schema/dcx.xsd')
         );
         return $response;
     }
