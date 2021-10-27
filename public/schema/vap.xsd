@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns="http://www.vascoda.de/vap/2.0/xml/" targetNamespace="http://www.vascoda.de/vap/2.0/xml/" xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:dcx="http://purl.org/dc/xml/" xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:vtype="http://www.vascoda.de/vap/2.0/xml/vascodatype/" elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+    schemaLocation="http://www.w3.org/2001/03/xml.xsd"> </xs:import>
+  <xs:import namespace="http://purl.org/dc/xml/"
+    schemaLocation="http://vascoda.sub.uni-goettingen.de/dc/dcx.xsd"> </xs:import>
+  <xs:import namespace="http://purl.org/dc/elements/1.1/"
+    schemaLocation="http://vascoda.sub.uni-goettingen.de/dc/dc.xsd"> </xs:import>
+  <xs:import namespace="http://purl.org/dc/terms/"
+    schemaLocation="http://vascoda.sub.uni-goettingen.de/dc/dcterms.xsd"> </xs:import>
+  <xs:import namespace="http://www.vascoda.de/vap/2.0/xml/vascodatype/"
+    schemaLocation="http://vascoda.sub.uni-goettingen.de/vap/2.0/xml/vascodatype.xsd"> </xs:import>
+
+  <!-- Definition der vap Elemente -->
+
+  <xs:element name="any" type="dcx:StatementElement" abstract="true"/>
+  <xs:annotation>
+    <xs:documentation xml:lang="de">fk: Die Konstruktion mit dem any Element geht zurück auf die
+      DC-XML schemata. Ich versuche sie hier analog anzuwenden.</xs:documentation>
+  </xs:annotation>
+  
+  <xs:element name="placeOfPublication" substitutionGroup="any"/>
+  <xs:element name="edition" substitutionGroup="any"/>
+  <xs:element name="recordId" substitutionGroup="any"/>
+  <xs:element name="bibliographicCitation" type="bibliographicCitation"/>
+  <xs:element name="parentTitle" substitutionGroup="any"/>
+  <xs:element name="parentVolume" substitutionGroup="any"/>
+  <xs:element name="parentVersion" substitutionGroup="any"/>
+  <xs:element name="issue" substitutionGroup="any"/>
+  <xs:element name="specialIssue" substitutionGroup="any"/>
+  <xs:element name="parentIssued" substitutionGroup="any"/>
+  <xs:element name="startPage" substitutionGroup="any"/>
+  <xs:element name="endPage" substitutionGroup="any"/>
+  <xs:element name="pageTotal" substitutionGroup="any"/>
+  <xs:element name="parentIdentifier" substitutionGroup="any"/>
+
+  <!-- Definition des vascoda Containers bibliographicCitation -->
+
+  <xs:complexType name="bibliographicCitation">
+    <xs:complexContent>
+      <xs:restriction base="dcx:DescriptionElement">
+        <xs:sequence>
+          <xs:element ref="endPage" minOccurs="0"/>
+          <xs:element ref="issue" minOccurs="0"/>
+          <xs:element ref="parentIdentifier" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="parentIssued" minOccurs="0"/>
+          <xs:element ref="pageTotal" minOccurs="0"/>
+          <xs:element ref="parentTitle" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="parentVersion" minOccurs="0"/>
+          <xs:element ref="parentVolume" minOccurs="0"/>
+          <xs:element ref="specialIssue" minOccurs="0"/>
+          <xs:element ref="startPage" minOccurs="0"/>
+        </xs:sequence>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- TODO: Beschränkung von date, issued, parentIssued  auf W3CDTF -->
+  <xs:simpleType name="DateVocabEncSchemeURI">
+    <xs:restriction base="xs:anyURI">
+      <xs:enumeration value="http://purl.org/dc/terms/W3CDTF"/>
+      <xs:enumeration value="http://purl.org/dc/terms/Period"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="W3CDTF">
+    <xs:simpleContent>
+      <xs:restriction base="dcx:ValueStringElement">
+        <xs:simpleType>
+          <xs:union memberTypes="xs:gYear xs:gYearMonth xs:date xs:dateTime"/>
+        </xs:simpleType>
+        <xs:attribute ref="xml:lang" use="prohibited"/>
+      </xs:restriction>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- Refinement von dc:type mit vascodaType Encoding Scheme -->
+
+  <xs:annotation>
+    <xs:documentation xml:lang="de"> Anwendungsbeispiel
+  <!-- 
+    <dc:type dcx:vocabEncSchemeURI="http://www.vascoda.de/vascodatype"
+    dcx:valueURI="http://www.vascoda.de/vascodatype/Artikel">
+    <dcx:valueString xsi:type="vap:vascodaTypeString">Artikel</dcx:valueString>
+    </dc:type> 
+  -->
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="vascodaTypeString">
+    <xs:simpleContent>
+      <xs:restriction base="dcx:ValueStringElement">
+        <xs:simpleType>
+          <xs:restriction base="vtype:vascodaTypeString"/>
+        </xs:simpleType>
+      </xs:restriction>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- Übernahme der encoding schemes aus dem dcterms.xsd und Anpassung für vascoda Encoding Schemes möglich, sinnvoll?
+    Anfrage per E-mail an dc-architecture Liste beachten! -->
+
+</xs:schema>

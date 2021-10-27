@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+                      xmlns="http://www.vascoda.de/vap/2.0/xml/vascodatype/"
+                      targetNamespace="http://www.vascoda.de/vap/2.0/xml/vascodatype/" 
+                      elementFormDefault="qualified"
+                      attributeFormDefault="unqualified">
+
+  <xs:simpleType name="vascodaTypeString">
+    <xs:restriction base="xs:Name">
+      <xs:enumeration value="Artikel"/>
+      <xs:enumeration value="Buch"/>
+      <xs:enumeration value="Internetressource"/>
+      <xs:enumeration value="unbekannt"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="vascodaTypeURI">
+    <xs:restriction base="xs:anyURI">
+      <xs:enumeration value="http://www.vascoda.de/vap/xml/1.0/vascodatype/Artikel"/>
+      <xs:enumeration value="http://www.vascoda.de/vap/xml/1.0/vascodatype/Buch"/>
+      <xs:enumeration value="http://www.vascoda.de/vap/xml/1.0/vascodatype/Internetressource"/>
+      <xs:enumeration value="http://www.vascoda.de/vap/xml/1.0/vascodatype/unknown"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="vascodaTypeQName">
+    <xs:restriction base="xs:QName">
+      <xs:enumeration value="Artikel"/>
+      <xs:enumeration value="Buch" />
+      <xs:enumeration value="Internetressource" />
+      <xs:enumeration value="unknown" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
