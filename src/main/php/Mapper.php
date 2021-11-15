@@ -259,6 +259,13 @@ END;
         }
         $query['where'][] = 'freigeschaltet is not null';
 
+        if ($set) {
+            $query['join'][] = 'inner join quelle_institution using (quelle)';
+            $query['join'][] = 'inner join kollektion_institution using (institution)';
+            $query['where'][] = 'kollektion = :set';
+            $query['parameters'][':set'] = $set;
+        }
+
         return $query;
     }
 
