@@ -1,120 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XML Spy v4.0 U (http://www.xmlspy.com) by Ray Denenberg (Library of Congress) -->
-<!--
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://purl.org/dc/xml/"
+           targetNamespace="http://purl.org/dc/xml/"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified">
 
-dcx Schema for SRU. April 2008.
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+      XML Schema for http://purl.org/dc/xmlns/2008/09/01/dc-ds-xml/ namespace
 
-This schema allows you to include
-1. DC simple elements (original 15)
-2. dcterms elements
-3. other elements
+      Created 2008-09-01
 
-An instance looks like this:
+      Created by
 
-<dcx>
-<simpleDc>
-	<dc:title/>
-	<dc:abstract/>
-</simpleDc>
-<dcTerms>
-	<dcterms:alternative></dcterms:alternative>
-</dcTerms>
-<otherElements>
-<other:xyz xmlns:other="info:xxx"/>
-</otherElements>
-</dcx>
+      Pete Johnston (pete.johnston@eduserv.org.uk)
 
--->
-<xs:schema 
-xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-targetNamespace="info:lc/xmlns/dcx-v1"
- xmlns="info:lc/xmlns/dcx-v1"
-  xmlns:dc="http://purl.org/dc/terms/" 
-  xmlns:dcterms="http://purl.org/dc/terms/" 
-  elementFormDefault="qualified" 
-  attributeFormDefault="unqualified">
-  <!-- -->
-	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
-	<!--
-Root element declarations:
--->
-	<xs:element name="dcx" type="dcxComplexType"/>
-	<!--
-End root element declarations:
--->
-	<xs:complexType name="dcxComplexType">
-		<xs:sequence>
-			<xs:element name="simpleDc" minOccurs="0" type="simpleDcComplexType"/>
-			<xs:element name="dcTerms" minOccurs="0" type="dcTermsComplexType"/>
-			<xs:element name="otherElements" minOccurs="0" type="otherElementsComplexType"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="simpleDcComplexType">
-		<xs:choice maxOccurs="unbounded">
-			<xs:element ref="dc:title"/>
-			<xs:element ref="dc:creator"/>
-			<xs:element ref="dc:subject"/>
-			<xs:element ref="dc:description"/>
-			<xs:element ref="dc:publisher"/>
-			<xs:element ref="dc:contributor"/>
-			<xs:element ref="dc:date"/>
-			<xs:element ref="dc:type"/>
-			<xs:element ref="dc:format"/>
-			<xs:element ref="dc:identifier"/>
-			<xs:element ref="dc:source"/>
-			<xs:element ref="dc:language"/>
-			<xs:element ref="dc:relation"/>
-			<xs:element ref="dc:coverage"/>
-			<xs:element ref="dc:rights"/>
-		</xs:choice>
-	</xs:complexType>
-	<xs:complexType name="dcTermsComplexType">
-		<xs:choice maxOccurs="unbounded">
-			<xs:element ref="dc:alternative"/>
-			<xs:element ref="dc:tableOfContents"/>
-			<xs:element ref="dc:abstract"/>
-			<xs:element ref="dc:created"/>
-			<xs:element ref="dc:valid"/>
-			<xs:element ref="dc:available"/>
-			<xs:element ref="dc:issued"/>
-			<xs:element ref="dc:modified"/>
-			<xs:element ref="dc:dateAccepted"/>
-			<xs:element ref="dc:dateCopyrighted"/>
-			<xs:element ref="dc:dateSubmitted"/>
-			<xs:element ref="dc:extent"/>
-			<xs:element ref="dc:medium"/>
-			<xs:element ref="dc:isVersionOf"/>
-			<xs:element ref="dc:hasVersion"/>
-			<xs:element ref="dc:isReplacedBy"/>
-			<xs:element ref="dc:replaces"/>
-			<xs:element ref="dc:isRequiredBy"/>
-			<xs:element ref="dc:requires"/>
-			<xs:element ref="dc:isPartOf"/>
-			<xs:element ref="dc:hasPart"/>
-			<xs:element ref="dc:isReferencedBy"/>
-			<xs:element ref="dc:references"/>
-			<xs:element ref="dc:isFormatOf"/>
-			<xs:element ref="dc:hasFormat"/>
-			<xs:element ref="dc:conformsTo"/>
-			<xs:element ref="dc:spatial"/>
-			<xs:element ref="dc:temporal"/>
-			<xs:element ref="dc:audience"/>
-			<xs:element ref="dc:accrualMethod"/>
-			<xs:element ref="dc:accrualPeriodicity"/>
-			<xs:element ref="dc:accrualPolicy"/>
-			<xs:element ref="dc:instructionalMethod"/>
-			<xs:element ref="dc:provenance"/>
-			<xs:element ref="dc:rightsHolder"/>
-			<xs:element ref="dc:mediator"/>
-			<xs:element ref="dc:educationLevel"/>
-			<xs:element ref="dc:accessRights"/>
-			<xs:element ref="dc:license"/>
-			<xs:element ref="dc:bibliographicCitation"/>
-		</xs:choice>
-	</xs:complexType>
-	<xs:complexType name="otherElementsComplexType">
-		<xs:sequence>
-			<xs:any maxOccurs="unbounded" namespace="##any" processContents="lax"/>
-		</xs:sequence>
-	</xs:complexType>
+      This schema declares a set of XML elements and attributes for use in DC-DS-XML documents.
+
+    </xs:documentation>
+
+  </xs:annotation>
+
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+             schemaLocation="http://www.w3.org/2001/xml.xsd">
+  </xs:import>
+
+  <xs:complexType name="DescriptionSetElement" final="extension">
+    <xs:annotation>
+      <xs:documentation>
+        The DescriptionSetElement complexType defines the content model for a DC-XML-Full Description Set Element.
+        A DC-XML-Full Description Set Element may contain one or more DC-XML-Full Description Elements.
+        A DC-XML-Full Description Set Element may also have XML attributes, the names of which may be from any other XML namespace.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="description" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attributeGroup ref="DescriptionSetElementAttributes" />
+  </xs:complexType>
+
+  <xs:attributeGroup name="DescriptionSetElementAttributes">
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:attributeGroup>
+
+
+  <xs:element name="descriptionSet" type="DescriptionSetElement" />
+
+
+  <xs:complexType name="DescriptionElement" final="extension">
+    <xs:annotation>
+      <xs:documentation>
+        The DescriptionElement complexType defines the content model for a DC-XML-Full Description Element.
+        A DC-XML-Full Description Element may contain one or more DC-XML-Full Statement Elements.
+        A DC-XML-Full Description Element may also have a dcxf:resourceURI and a dcxf:resourceId attribute.
+        A DC-XML-Full Description Element may also have other XML attributes, the names of which may be from any other XML namespace.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="statement" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attributeGroup ref="DescriptionElementAttributes" />
+  </xs:complexType>
+
+  <xs:attributeGroup name="DescriptionElementAttributes">
+    <xs:attribute ref="resourceId" use="optional"/> <!-- can't constrain either resourceId or resourceURI -->
+    <xs:attribute ref="resourceURI" use="optional"/>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:attributeGroup>
+
+  <xs:attribute name="resourceId" type="xs:ID" />
+
+  <xs:attribute name="resourceURI" type="xs:anyURI" />
+
+
+  <xs:element name="description" type="DescriptionElement" />
+
+
+  <xs:complexType name="StatementElement" final="extension">
+    <xs:annotation>
+      <xs:documentation>
+        The StatementElement complexType defines the content model for a DC-XML-Full Statement Element.
+        A DC-XML-Full Statement Element must have a dcxf:propertyURI or dcxf:propertyPrefName attribute.
+        A DC-XML-Full Statement Element may contain Value String Elements.
+        A DC-XML-Full Statement Element may also have a dcxf:valueURI, dcxf:vesURI, or dcxf:valueRef attribute.
+        A DC-XML-Full Statement Element may also have other XML attributes, the names of which may be from any other XML namespace.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="valueString"/>
+        <xs:element ref="literalValueString"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attributeGroup ref="StatementElementAttributes"/>
+  </xs:complexType>
+
+  <xs:attributeGroup name="StatementElementAttributes">
+    <xs:attribute ref="propertyURI" use="optional"/>
+    <xs:attribute ref="vesURI" use="optional"/>
+    <xs:attribute ref="valueURI" use="optional"/> <!-- can't constrain either valueRef or valueURI -->
+    <xs:attribute ref="valueRef" use="optional"/>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:attributeGroup>
+
+  <xs:attribute name="propertyURI" type="xs:anyURI" />
+
+  <xs:attribute name="valueURI" type="xs:anyURI" />
+
+  <xs:attribute name="vesURI" type="xs:anyURI" />
+
+  <xs:attribute name="valueRef" type="xs:IDREF" />
+
+
+  <xs:element name="statement" type="StatementElement" />
+
+
+
+  <xs:complexType name="ValueStringElement" mixed="true" final="extension">
+    <xs:annotation>
+      <xs:documentation>
+
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="ValueStringElementAttributes"/>
+  </xs:complexType>
+
+  <xs:attributeGroup name="ValueStringElementAttributes">
+    <xs:attribute ref="xml:lang" use="optional"/> <!-- can't constrain either xml:lang or sesURI -->
+    <xs:attribute ref="sesURI" use="optional"/>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:attributeGroup>
+
+  <xs:attribute name="sesURI" type="xs:anyURI" />
+
+
+  <xs:element name="valueString" type="ValueStringElement" />
+
+  <xs:element name="literalValueString" type="ValueStringElement" />
+
 </xs:schema>

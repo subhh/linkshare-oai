@@ -6,15 +6,15 @@
   attributeFormDefault="unqualified">
 
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"
-    schemaLocation="http://www.w3.org/2001/03/xml.xsd"> </xs:import>
+    schemaLocation="xml.xsd"> </xs:import>
   <xs:import namespace="http://purl.org/dc/xml/"
-    schemaLocation="http://vascoda.sub.uni-goettingen.de/dc/dcx.xsd"> </xs:import>
+    schemaLocation="dcx.xsd"> </xs:import>
   <xs:import namespace="http://purl.org/dc/elements/1.1/"
-    schemaLocation="http://vascoda.sub.uni-goettingen.de/dc/dc.xsd"> </xs:import>
+    schemaLocation="dc.xsd"> </xs:import>
   <xs:import namespace="http://purl.org/dc/terms/"
-    schemaLocation="http://vascoda.sub.uni-goettingen.de/dc/dcterms.xsd"> </xs:import>
+    schemaLocation="dcterms.xsd"> </xs:import>
   <xs:import namespace="http://www.vascoda.de/vap/2.0/xml/vascodatype/"
-    schemaLocation="http://vascoda.sub.uni-goettingen.de/vap/2.0/xml/vascodatype.xsd"> </xs:import>
+    schemaLocation="vascodatype.xsd"> </xs:import>
 
   <!-- Definition der vap Elemente -->
 
@@ -42,22 +42,18 @@
   <!-- Definition des vascoda Containers bibliographicCitation -->
 
   <xs:complexType name="bibliographicCitation">
-    <xs:complexContent>
-      <xs:restriction base="dcx:DescriptionElement">
-        <xs:sequence>
-          <xs:element ref="endPage" minOccurs="0"/>
-          <xs:element ref="issue" minOccurs="0"/>
-          <xs:element ref="parentIdentifier" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="parentIssued" minOccurs="0"/>
-          <xs:element ref="pageTotal" minOccurs="0"/>
-          <xs:element ref="parentTitle" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="parentVersion" minOccurs="0"/>
-          <xs:element ref="parentVolume" minOccurs="0"/>
-          <xs:element ref="specialIssue" minOccurs="0"/>
-          <xs:element ref="startPage" minOccurs="0"/>
-        </xs:sequence>
-      </xs:restriction>
-    </xs:complexContent>
+    <xs:sequence>
+      <xs:element ref="endPage" minOccurs="0"/>
+      <xs:element ref="issue" minOccurs="0"/>
+      <xs:element ref="parentIdentifier" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="parentIssued" minOccurs="0"/>
+      <xs:element ref="pageTotal" minOccurs="0"/>
+      <xs:element ref="parentTitle" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="parentVersion" minOccurs="0"/>
+      <xs:element ref="parentVolume" minOccurs="0"/>
+      <xs:element ref="specialIssue" minOccurs="0"/>
+      <xs:element ref="startPage" minOccurs="0"/>
+    </xs:sequence>
   </xs:complexType>
 
   <!-- TODO: Beschränkung von date, issued, parentIssued  auf W3CDTF -->
